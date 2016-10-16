@@ -1,7 +1,7 @@
 class Warehouse < ActiveRecord::Base
   has_one :inventory
-  has_many :products, through: :inventory
-  # has_many :products, through: :shipments
+  has_many :products, through: :inventory, source: :current_status, source_type: 'Inventory'
+  has_many :products, through: :shipments, source: :current_status, source_type: 'Shipment'
   has_many :shipments
 
   def receive_order(order_id)

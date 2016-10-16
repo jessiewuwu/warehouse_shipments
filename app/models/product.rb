@@ -1,5 +1,4 @@
 class Product < ActiveRecord::Base
-  belongs_to :inventory
+  belongs_to :current_status, polymorphic: true
   has_one :warehouse, through: :inventory
-  belongs_to :shipment
 end

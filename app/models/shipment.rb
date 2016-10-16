@@ -1,6 +1,6 @@
 class Shipment < ActiveRecord::Base
   belongs_to :warehouse
-  has_many :products
+  has_many :products, as: :current_status
 
   def add(order_id)
     # go through the order
@@ -16,8 +16,7 @@ class Shipment < ActiveRecord::Base
     order_qty.each do |k,v|
       if k != 'id' && (v.is_a? Integer) && v > 0 
         warehouse.inventory.products.where(size: k).limit(v).each do |product|
-          product.update_attributes(shipment_id: self.id)
-          warehouse.inventory.products.delete(Product.find(product.id))
+          product.update_attribute(:current_status, self)
         end
       end
     end

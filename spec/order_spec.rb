@@ -1,19 +1,14 @@
 require 'rails_helper'
 
 describe Order do
-
   before(:each) do
     @new_order = Order.create
     @new_order.new_order({twin: 2})
     @warehouse1 = Warehouse.create
     @inventory = Inventory.create(warehouse_id: 1)
-    @twin = Product.create(inventory_id: @inventory.id,size: "twin")
-    @twin1 = Product.create(inventory_id: @inventory.id,size: "twin")
-    @twinXL = Product.create(inventory_id: @inventory.id,size: "twinXL")
-    @full = Product.create(inventory_id: @inventory.id,size: "full")
-    @calking = Product.create(inventory_id: @inventory.id,size: "calking")
-    @calking2 = Product.create(inventory_id: @inventory.id,size: "calking")
-    @calking3 = Product.create(inventory_id: @inventory.id,size: "calking")
+    @twin = Product.create(size: "twin", current_status: @inventory)
+    @twin1 = Product.create(size: "twin", current_status: @inventory)
+    @twinXL = Product.create(size: "twinXL", current_status: @inventory)
     @inventory.update_inventory
   end
 
@@ -25,19 +20,15 @@ describe Order do
     expect(order2.calking).to eq 5 
   end
 
-  it 'finds the warehouse with the inventory' do
+  it 'finds the warehouse with the inventory and sends the order to the warehouse' do
+    expect(@new_order).to receive(:send_order).with(@warehouse1.id, @new_order.id)
     @new_order.find_warehouse
   end
 
-  it 'prints the order_list' do
-    #order_list =  {calking: 5}
-    #@new_order.new_order(order_list)
-    #productA = order_list.keys.first
+  it 'sends the order to the warehouse' do 
+    # expect(@warehouse1).to receive(:receive_order).with(@new_order.id)
+    # @new_order.send_order(@warehouse1.id, @new_order.id)
 
-    #Inventory.where("calking >= ? AND twing >= ?", 5, 1)
-    # Inventory.find_by("calking >= ? ": 5)
-    # Inventory.find_by("#{productA.to_s} >= ?", order_list[productA])
-    #Like.where('user_id = ? AND post_id = ?', params[:user_id], params[:post_id])
   end
   
 end
