@@ -1,6 +1,6 @@
 class Inventory < ActiveRecord::Base
   belongs_to :warehouse
-  has_many :products
+  has_many :products, as: :current_status
 
   def update_inventory
     #find a way to automatically do this w/o you having to call the method

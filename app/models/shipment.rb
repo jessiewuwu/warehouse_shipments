@@ -1,6 +1,6 @@
 class Shipment < ActiveRecord::Base
   belongs_to :warehouse
-  has_many :products
+  has_many :products, as: :current_status
 
   def add(order_id)
     # go through the order
