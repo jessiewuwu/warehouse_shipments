@@ -9,8 +9,6 @@ describe Inventory do
     @shipment = Shipment.create(warehouse_id: @warehouse1.id)
 
     @twin = Product.create(size: "twin")
-    @twin1 = Product.create(size: "twin")
-    @twinXL = Product.create(size: "twinXL")
     @full = Product.create(size: "full")
     @calking2 = Product.create(size: "calking")
     @calking3 = Product.create(size: "calking")
