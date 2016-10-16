@@ -8,6 +8,7 @@ class Order < ActiveRecord::Base
 
   def find_warehouse
     # what happens if the order has to be shipped between different warehouses?
+    
     warehouse_id = Inventory.where('twin >= ? AND twinXL >= ? AND full >= ? AND queen >= ? AND king >= ? AND calking >=?', self.twin, self.twinXL, self.full, self.queen, self.king, self.calking ).first.warehouse_id
 
     send_order(warehouse_id, self.id)

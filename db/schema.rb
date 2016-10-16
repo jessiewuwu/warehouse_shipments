@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161016053838) do
+ActiveRecord::Schema.define(version: 20161016202202) do
 
   create_table "inventories", force: :cascade do |t|
     t.integer  "warehouse_id"
@@ -37,18 +37,14 @@ ActiveRecord::Schema.define(version: 20161016053838) do
   end
 
   create_table "products", force: :cascade do |t|
-    t.integer  "inventory_id"
-    t.integer  "warehouse_id"
     t.string   "size"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
-    t.integer  "shipment_id"
     t.integer  "current_status_id"
     t.string   "current_status_type"
   end
 
   add_index "products", ["current_status_type", "current_status_id"], name: "index_products_on_current_status_type_and_current_status_id"
-  add_index "products", ["shipment_id"], name: "index_products_on_shipment_id"
 
   create_table "shipments", force: :cascade do |t|
     t.integer  "warehouse_id"
