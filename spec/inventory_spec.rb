@@ -45,4 +45,11 @@ describe Inventory do
     expect(@calking2.current_status).to eq(@inventory2)
   end
 
+  it "has the correct association to its warehouse and product" do
+    @calking2.update_attributes(current_status: @inventory)
+
+    expect(@calking2.current_status).to eq(@inventory)
+    expect(@inventory.warehouse).to eq(@warehouse1)
+  end
+
 end
