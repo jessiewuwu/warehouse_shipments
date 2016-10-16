@@ -1,5 +1,5 @@
 class Product < ActiveRecord::Base
-  belongs_to :current_status
+  belongs_to :inventory
   has_one :warehouse, through: :inventory
   belongs_to :shipment
 end
